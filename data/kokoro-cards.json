@@ -1,0 +1,30 @@
+[
+  {
+    "kanji": "作",
+    "romaji": "Saku",
+    "english": "Creation",
+    "href": "/works",
+    "description": "Projects, publications, and things I've built"
+  },
+  {
+    "kanji": "学",
+    "romaji": "Manabu",
+    "english": "Learning",
+    "href": "/posts",
+    "description": "Thoughts, notes, and blog posts"
+  },
+  {
+    "kanji": "新",
+    "romaji": "Shin",
+    "english": "News",
+    "href": "/news",
+    "description": "Updates and recent happenings"
+  },
+  {
+    "kanji": "志",
+    "romaji": "Kokorozashi",
+    "english": "Ambition",
+    "href": "/resume",
+    "description": "Background, experience, and aspirations"
+  }
+]

@@ -1,6 +1,6 @@
-const title = "Yang Tuan Anh - Computer Science Student";
+const title = "Yang Tuấn Anh — Personal Portfolio";
 const description =
-  "Personal website for Yang Tuan Anh, where I present my ideas, projects and personal updates. Acts as a portfolio.";
+  "Personal website of Yang Tuấn Anh — Japanese-inspired portfolio showcasing projects, publications, and thoughts on computer science, AI, and software engineering.";
 
 const SEO = {
   title,

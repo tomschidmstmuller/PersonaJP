@@ -1,142 +1,219 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import Section from '../components/Section/section'
-import Link from 'next/link'
-import StyledLink from '../components/StyledLink'
-import { AiFillGithub, AiFillFacebook, AiFillLinkedin, AiFillMail  } from "react-icons/ai";
-import { FaCoffee } from "react-icons/fa"
-import SocialMediaLink from '../components/SocialMediaLink'
-const inter = Inter({ subsets: ['latin'] })
-import Banner from "/public/images/banner.png"
+import Head from "next/head";
+import Image from "next/image";
+import FadeIn from "../components/FadeIn";
+import JapaneseCard from "../components/JapaneseCard";
+import StyledLink from "../components/StyledLink";
+import SocialMediaLink from "../components/SocialMediaLink";
+import Link from "next/link";
+import EnsoIcon from "../components/EnsoIcon";
+import { AiFillGithub, AiFillFacebook, AiFillLinkedin, AiFillMail } from "react-icons/ai";
+import kokoroCards from "../data/kokoro-cards.json";
+import Banner from "../public/images/banner.png";
 
-export default function Home()
-{
+export default function Home() {
   return (
-    <div className="mt-10">
-      <Image src={Banner} alt="Minecraft base" className="w-full aspect-[7/2] object-cover object-center"/>
-      <div className="rounded-lg dark:bg-neutral-700 bg-neutral-200 p-3 my-6 text-center">
-        Delusion. Convince yourself.
-      </div>
+    <div className="page-enter">
+      {/* Hero */}
+      <FadeIn>
+        <div className="relative mb-16 min-h-[40vh] flex flex-col justify-center">
+          {/* Enso decorative circle */}
+          <div className="absolute -top-8 -right-8 opacity-20 hidden md:block text-bamboo-ash dark:text-night-text">
+            <EnsoIcon size={200} />
+          </div>
 
-      <main className="md:flex">
-        <div className="grow">
-          <h2>
-            Yang Tuấn Anh 
-          </h2>
-          <p>
-            APCS21 @ VNUHCM - University of Science, MComp (CS Specialization) - National University of Singapore
+          <div className="relative">
+            <p className="text-xs tracking-[0.3em] text-bamboo-ash dark:text-night-text/50 mb-4 uppercase">
+              ようこそ &mdash; Welcome
+            </p>
+            <h1 className="text-4xl md:text-5xl font-heading font-semibold leading-tight mb-6">
+              Yang Tuấn Anh
+            </h1>
+            <p className="text-base md:text-lg text-bamboo-ash dark:text-night-text/70 leading-relaxed max-w-2xl">
+              APCS21 @ VNUHCM &mdash; University of Science, MComp (CS Specialization)
+              &mdash; National University of Singapore
+            </p>
+          </div>
+        </div>
+      </FadeIn>
+
+      {/* Banner image */}
+      <FadeIn delay={0.1}>
+        <div className="waku overflow-hidden mb-12">
+          <Image
+            src={Banner}
+            alt="Minecraft base"
+            className="w-full aspect-[7/2] object-cover object-center img-washi"
+          />
+        </div>
+      </FadeIn>
+
+      {/* Quote */}
+      <FadeIn delay={0.15}>
+        <div className="waku p-4 md:p-6 mb-12 text-center">
+          <p className="font-heading text-sm md:text-base italic text-bamboo-ash dark:text-night-text/70 leading-relaxed">
+            &ldquo;Delusion. Convince yourself.&rdquo;
           </p>
         </div>
-        <div className="shrink-0 mt-8 md:mt-0 md:ml-6 text-center">
-          <img src="/images/profile.jpeg" alt="Profile Image" className="outline outline-white outline-2 w-24 inline-block rounded-full" />
-        </div>
-      </main>
+      </FadeIn>
 
-      <Section delay={0.1}>
-        <h3 className="underline underline-offset-8 mb-4 decoration-neutral-600 decoration-4">
-          Works
-        </h3>
-        <p className="indent-4 break-words">
-          I grew up in Ho Chi Minh City, Vietnam, I&apos;m Vietnamese-Taiwanese, and I graduated from the&nbsp;<StyledLink href="https://www.hcmus.edu.vn/">VNUHCM - University of Science</StyledLink>&nbsp;under the Advanced Program of Computer Science. I&apos;m pursuing positions in both industry and academia within Software Engineering and Data Science. My interests include <span className="transition ease-in-out delay-150 brightness-75 dark:brightness-100 text-highlight hover:underline hover:underline-offset-4">Efficient Computing, Computer Vision, Graph Neural Networks, AI4Sci (Geospatial, Remote Sensing, Biomedical)</span>, and developing robust software systems.
-        </p>
-        <div className="flex justify-center my-6 gap-4">
+      {/* Kokoro Cards */}
+      <FadeIn delay={0.2}>
+        <h2 className="font-heading text-center mb-8" style={{ display: "block" }}>
+          心 &mdash; Kokoro
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-16">
+          {kokoroCards.map((card) => (
+            <JapaneseCard
+              key={card.kanji}
+              kanji={card.kanji}
+              romaji={card.romaji}
+              english={card.english}
+              href={card.href}
+              description={card.description}
+            />
+          ))}
+        </div>
+      </FadeIn>
+
+      <div className="kumiko-divider" />
+
+      {/* About */}
+      <FadeIn delay={0.3}>
+        <h2>自己紹介 &mdash; About</h2>
+        <div className="md:flex gap-8 items-start mt-8">
+          <div className="grow">
+            <p className="text-sm leading-relaxed text-bamboo-ash dark:text-night-text/70 mb-4">
+              I grew up in Ho Chi Minh City, Vietnam. I&apos;m Vietnamese-Taiwanese, and I
+              graduated from the{" "}
+              <StyledLink href="https://www.hcmus.edu.vn/">
+                VNUHCM &mdash; University of Science
+              </StyledLink>{" "}
+              under the Advanced Program of Computer Science. I&apos;m pursuing positions
+              in both industry and academia within Software Engineering and Data Science.
+              My interests include{" "}
+              <span className="text-vermilion dark:text-night-ember">
+                Efficient Computing, Computer Vision, Graph Neural Networks, AI4Sci
+                (Geospatial, Remote Sensing, Biomedical)
+              </span>
+              , and developing robust software systems.
+            </p>
+          </div>
+          <div className="shrink-0 mt-6 md:mt-0 md:ml-6 text-center">
+            <div className="waku inline-block overflow-hidden">
+              <img
+                src="/images/profile.jpeg"
+                alt="Profile"
+                className="w-28 h-28 object-cover img-washi"
+              />
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+
+      <div className="kumiko-divider" />
+
+      {/* Works CTA */}
+      <FadeIn delay={0.4}>
+        <div className="text-center mb-16">
+          <h3 className="text-lg font-heading mb-4 tracking-wider">作品 &mdash; Works</h3>
           <Link href="/works">
-            <button className="transition ease-in-out hover:-translate-y-1 hover:scale-110 bg-amber-400 hover:brightness-110 text-neutral-900 inline-flex px-4 py-2 rounded-lg items-center">
-              My portfolio&nbsp;
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            </button>
-          </Link>
-          <Link href="/resume">
-            <button className="transition ease-in-out hover:-translate-y-1 hover:scale-110 bg-amber-400 hover:brightness-110 text-neutral-900 inline-flex px-4 py-2 rounded-lg items-center">
-              My resume&nbsp;
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
+            <button className="btn-vermilion text-sm tracking-wider">
+              View portfolio
             </button>
           </Link>
         </div>
-      </Section>
+      </FadeIn>
 
-      <Section delay={0.4}>
-        <h3 className="underline underline-offset-8 mb-4 decoration-neutral-600 decoration-4">
-          Bio
-        </h3>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2003</span>
-          <span>Born in Ho Chi Minh City, Vietnam</span>
+      {/* Bio */}
+      <FadeIn delay={0.5}>
+        <h2>経歴 &mdash; Bio</h2>
+        <div className="space-y-3 mt-8">
+          {[
+            ["2003", "Born in Ho Chi Minh City, Vietnam"],
+            ["2018", "Started high school @ VNU-HCM High School for the Gifted"],
+            ["2021", "Started Bachelor's degree in Computer Science @ HCMUS"],
+            ["2022", "Interned in Fullstack Engineering @ Tiki &mdash; Worked @ LEAN Social"],
+            ["2023", "Interned in Algorithmic Design @ Autonomous.ai"],
+            ["2024", "AI Engineer @ Autonomous.ai &mdash; Research Intern @ HySonLab, UAB"],
+            ["2025", "Founding Engineer @ Zalos"],
+            ["2026", "Master's in CS @ NUS &mdash; Research Intern @ ASI Lab, NUS"],
+          ].map(([year, text]) => (
+            <div key={year} className="flex gap-4 text-sm">
+              <span className="font-heading text-vermilion dark:text-night-ember w-12 shrink-0">
+                {year}
+              </span>
+              <span className="text-bamboo-ash dark:text-night-text/70 leading-relaxed">
+                {text}
+              </span>
+            </div>
+          ))}
         </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2018</span>
-          <span>Started high school @ VNU-HCM High school for the Gifted</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2021</span>
-          <span>Started Bachelor&apos;s degree in Computer Science @ HCMUS, Advanced Program in Computer Science</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2022</span>
-          <span>Interned in Fullstack Engineering @ Tiki<br/>Worked @ LEAN Social</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2023</span>
-          <span>Interned in Algorithmic Design @ Autonomous.ai</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2024</span>
-          <span>Worked as an AI Engineer @ Autonomous.ai<br/>Working as a Research Intern @ HySonLab - UAB.</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2025</span>
-          <span>Worked as a Founding Engineer @ Zalos</span>
-        </div>
-        <div className="flex">
-          <span className="font-bold pr-6 ">2026</span>
-          <span>Started Master&apos;s degree in Computer Science @ NUS <br/>Working as a Research Intern @ Artificial Scientific Intelligence Lab - NUS.</span>
-        </div>
-      </Section>
+      </FadeIn>
 
-      <Section delay={0.6}>
-        <h3 className="underline underline-offset-8 mb-4 decoration-neutral-600 decoration-4">
-          I ♥
-        </h3>
-        <p className="indent-4 break-words">
-        <StyledLink href="https://doi.org/10.1117/12.3094417">Graph Neural Networks</StyledLink>, <StyledLink href="https://www.youtube.com/watch?v=40riCqvRoMs">Computer Vision</StyledLink>, <StyledLink href="https://huyenchip.com/mlops/">MLOps</StyledLink>, <StyledLink href="https://www.uber.com/en-VN/blog/h3/">Databases</StyledLink>, <StyledLink href="https://codeforces.com/profile/yanglake_">Competitive Programming</StyledLink>, Minecraft (one of my proudest builds 👆), Music (<StyledLink href="https://youtu.be/FyG21rXCxlY">Kpop</StyledLink>, <StyledLink href="https://youtu.be/HYfkxX4PFyw">Europop</StyledLink>, <StyledLink href="https://youtu.be/WaKdPgkTZ7M">Soviet Classical Orchestral</StyledLink>, <StyledLink href="https://youtu.be/Bl-YMD6yePc">Video Game OSTs</StyledLink>, <StyledLink href="https://www.youtube.com/watch?v=L5q4uYj-gyg">Breakcore</StyledLink>, <StyledLink href="https://youtu.be/rViCS8i0JxI">played the piano years ago</StyledLink>), Languages (Vietnamese, English, Mandarin, Spanish), Powerlifting, <StyledLink href="https://www.projectxvietnam.org/">Communities, Career Prep</StyledLink>, sharing about my idols (like these links).
+      <div className="kumiko-divider" />
+
+      {/* Interests */}
+      <FadeIn delay={0.6}>
+        <h2>好 &mdash; Interests</h2>
+        <p className="text-sm leading-relaxed text-bamboo-ash dark:text-night-text/70 mt-8">
+          <StyledLink href="https://doi.org/10.1117/12.3094417">
+            Graph Neural Networks
+          </StyledLink>
+          ,{" "}
+          <StyledLink href="https://www.youtube.com/watch?v=40riCqvRoMs">
+            Computer Vision
+          </StyledLink>
+          ,{" "}
+          <StyledLink href="https://huyenchip.com/mlops/">MLOps</StyledLink>,{" "}
+          <StyledLink href="https://www.uber.com/en-VN/blog/h3/">
+            Databases
+          </StyledLink>
+          ,{" "}
+          <StyledLink href="https://codeforces.com/profile/yanglake_">
+            Competitive Programming
+          </StyledLink>
+          , Minecraft, Music (Kpop, Europop, Classical, OSTs, Breakcore), Languages
+          (Vietnamese, English, Mandarin, Spanish), Powerlifting, Communities, Career
+          Prep
         </p>
-      </Section>
+      </FadeIn>
 
-      <Section delay={0.8}>
-        <h3 className="underline underline-offset-8 mb-4 decoration-neutral-600 decoration-4">
-          Reach me through
-        </h3>
-        <SocialMediaLink href="https://github.com/YangTuanAnh">
-          <AiFillGithub className="mr-2"/> YangTuanAnh - Github
-        </SocialMediaLink>
-        <SocialMediaLink href="https://www.facebook.com/tuananh.yang.73/">
-          <AiFillFacebook className="mr-2"/> Yang Tuấn Anh - Facebook
-        </SocialMediaLink>
-        <SocialMediaLink href="https://www.linkedin.com/in/yang-tuan-anh-375759218/">
-          <AiFillLinkedin className="mr-2"/> Yang Tuấn Anh - Linkedin
-        </SocialMediaLink>
-        <SocialMediaLink href="mailto:yangtuananh2003@gmail.com" noBlank>
-          <AiFillMail className="mr-2"/> yangtuananh2003@gmail.com
-        </SocialMediaLink>
+      <div className="kumiko-divider" />
 
-        <div className="text-center m-6">
+      {/* Contact */}
+      <FadeIn delay={0.7}>
+        <h2>連絡 &mdash; Contact</h2>
+        <div className="space-y-3 mt-8">
+          <SocialMediaLink href="https://github.com/YangTuanAnh">
+            <AiFillGithub className="mr-2" /> YangTuanAnh &mdash; GitHub
+          </SocialMediaLink>
+          <SocialMediaLink href="https://www.facebook.com/tuananh.yang.73/">
+            <AiFillFacebook className="mr-2" /> Yang Tuấn Anh &mdash; Facebook
+          </SocialMediaLink>
+          <SocialMediaLink href="https://www.linkedin.com/in/yang-tuan-anh-375759218/">
+            <AiFillLinkedin className="mr-2" /> Yang Tuấn Anh &mdash; LinkedIn
+          </SocialMediaLink>
+          <SocialMediaLink href="mailto:yangtuananh2003@gmail.com" noBlank>
+            <AiFillMail className="mr-2" /> yangtuananh2003@gmail.com
+          </SocialMediaLink>
+        </div>
+
+        <div className="text-center mt-10">
           <Link href="/posts">
-            <button className="transition ease-in-out hover:-translate-y-1 hover:scale-110 bg-amber-400 hover:brightness-110 text-neutral-900 inline-flex px-4 py-2 rounded-lg items-center">
-              Check out my blog posts&nbsp;
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
+            <button className="btn-vermilion text-sm tracking-wider">
+              Read blog posts
             </button>
           </Link>
         </div>
 
-        <img className="mx-auto p-6" src="https://brainmade.org/88x31-light.png"/>
-      </Section>
+        <div className="flex justify-center mt-10">
+          <img
+            className="opacity-50"
+            src="https://brainmade.org/88x31-light.png"
+            alt="Brain Made"
+          />
+        </div>
+      </FadeIn>
     </div>
-  )
+  );
 }

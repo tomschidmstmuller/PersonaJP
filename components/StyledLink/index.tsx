@@ -1,12 +1,20 @@
-const StyledLink = ({href, children}:{href:string, children:any}) => {
-    return (
-        <a  href={href} 
-            className="transition ease-in-out delay-150 brightness-75 dark:brightness-100 text-highlight hover:underline hover:underline-offset-4"
-            target="_blank"
-            rel="noreferrer">
-                {children}
-        </a>
-    )
-}
+const StyledLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: any;
+}) => {
+  return (
+    <a
+      href={href}
+      className="text-vermilion dark:text-night-ember hover-underline transition-colors"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {children}
+    </a>
+  );
+};
 
 export default StyledLink;

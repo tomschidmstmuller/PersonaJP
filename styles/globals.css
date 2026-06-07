@@ -1,24 +1,98 @@
 @tailwind base;
-
-@layer base {
-  h1 {
-    @apply text-2xl font-bold my-2;
-  }
-  h2 {
-    @apply text-xl font-bold my-2;
-  }
-  h3 {
-    @apply text-lg font-bold my-2;
-  }
-  html {
-    @apply text-neutral-800
-  }
-  .dark {
-    color:rgba(255, 255, 255, 0.92);
-  }
-}
 @tailwind components;
 @tailwind utilities;
+
+/* ═══════════════════════════════════════
+   I. DESIGN TOKENS (CSS Custom Properties)
+   ═══════════════════════════════════════ */
+
+:root {
+  /* Washi Paper Series */
+  --washi-base: #FDF9F0;
+  --washi-warm: #FCF6E8;
+  --washi-cool: #F5F3F0;
+  --washi-shadow: #E8E2D5;
+
+  /* Sumi Ink Series */
+  --sumi-light: #3A3A3A;
+  --sumi-mid: #1F1F1F;
+  --sumi-deep: #0F0F0D;
+
+  /* Aged Elements */
+  --bamboo-ash: #8B8581;
+  --rust-paper: #C4A484;
+
+  /* Accents */
+  --vermilion: #C23B22;
+  --vermilion-hover: #A32E18;
+  --indigo: #2C3E50;
+  --indigo-deep: #1A2A3A;
+  --matcha: #6B7B3A;
+  --plum: #9B5E6B;
+  --goldleaf: #C9A86B;
+  --kurenai: #B23A3A;
+
+  /* Semantic aliases (light mode) */
+  --color-bg: var(--washi-base);
+  --color-text: var(--sumi-mid);
+  --color-text-secondary: var(--bamboo-ash);
+  --color-accent: var(--vermilion);
+  --color-accent-hover: var(--vermilion-hover);
+  --color-border: var(--washi-shadow);
+  --color-surface: #FFFFFF;
+  --color-overlay: rgba(15, 15, 13, 0.04);
+
+  /* Texture */
+  --washi-opacity: 0.04;
+  --washi-mix-blend: multiply;
+
+  /* Spacing Scale (Ma) */
+  --ma-xs: 4px;
+  --ma-sm: 8px;
+  --ma-md: 24px;
+  --ma-lg: 48px;
+  --ma-xl: 80px;
+  --ma-xxl: 120px;
+}
+
+/* ═══════════════════════════════════════
+   II. DARK MODE (Yoru)
+   ═══════════════════════════════════════ */
+
+.dark {
+  --washi-base: #1A1815;
+  --washi-warm: #211E1A;
+  --washi-cool: #252220;
+  --washi-shadow: #2D2824;
+  --sumi-light: #D4CFC7;
+  --sumi-mid: #E8E2D5;
+  --bamboo-ash: #A0988A;
+  --vermilion: #D45A3B;
+  --vermilion-hover: #E06E50;
+  --color-bg: #1A1815;
+  --color-text: #D4CFC7;
+  --color-text-secondary: #A0988A;
+  --color-accent: var(--vermilion);
+  --color-accent-hover: var(--vermilion-hover);
+  --color-border: #3D3632;
+  --color-surface: #211E1A;
+  --color-overlay: rgba(212, 207, 199, 0.04);
+  --washi-opacity: 0.15;
+  --washi-mix-blend: screen;
+}
+
+/* ═══════════════════════════════════════
+   III. SEASONAL THEMES
+   ═══════════════════════════════════════ */
+
+.theme-haru { --accent-season: #E8B4B8; --accent-deep: #D48C94; --overlay-season: rgba(232,180,184,0.1); }
+.theme-natsu { --accent-season: #4A6B5D; --accent-deep: #2D4A3E; --overlay-season: rgba(74,107,93,0.1); }
+.theme-aki { --accent-season: #C85C3A; --accent-deep: #A84328; --overlay-season: rgba(200,92,58,0.1); }
+.theme-fuyu { --accent-season: #9FB4C7; --accent-deep: #7A95AE; --overlay-season: rgba(159,180,199,0.1); }
+
+/* ═══════════════════════════════════════
+   IV. BASE RESET & TYPOGRAPHY
+   ═══════════════════════════════════════ */
 
 * {
   box-sizing: border-box;
@@ -26,19 +100,553 @@
   margin: 0;
 }
 
-
-
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Noto Sans JP", "Inter", system-ui, sans-serif;
+  font-feature-settings: "palt";
+  font-kerning: normal;
+  font-weight: 350;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Japanese language kerning */
+:lang(ja) {
+  font-feature-settings: "palt" 1, "kern" 1;
+  font-kerning: normal;
+}
+
+/* Heading System (Waka-inspired rhythm) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Noto Serif JP", "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-underline-offset: 0.3em;
+}
+
+h2 {
+  position: relative;
+  display: inline-block;
+  font-weight: 450;
+  letter-spacing: 0.06em;
+}
+
+/* Decorative line under h2 (kakejiku scroll mount) */
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+/* Vertical text */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  line-height: 2;
+  font-family: "Noto Serif JP", serif;
+}
+
+/* ═══════════════════════════════════════
+   V. WASHI PAPER TEXTURE OVERLAY
+   ═══════════════════════════════════════ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--washi-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cfilter id='washi'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23washi)' opacity='0.06'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  mix-blend-mode: var(--washi-mix-blend);
+}
+
+/* ═══════════════════════════════════════
+   VI. COMPONENT LAYER
+   ═══════════════════════════════════════ */
+
+@layer components {
+  /* ─── Shoji Panel ─── */
+  .shoji {
+    background: rgba(253, 249, 240, 0.75);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-bottom: 0.5px solid rgba(139, 133, 129, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
   }
+
+  .dark .shoji {
+    background: rgba(26, 24, 21, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .shoji-fallback {
+    background-color: rgba(253, 249, 240, 0.95);
+  }
+
+  .dark .shoji-fallback {
+    background-color: rgba(26, 24, 21, 0.95);
+  }
+
+  @supports (backdrop-filter: blur(12px)) {
+    .shoji-fallback {
+      background-color: transparent;
+    }
+    .dark .shoji-fallback {
+      background-color: transparent;
+    }
+  }
+
+  /* ─── Shoji Modal/Panel (for modals/drawers) ─── */
+  .shoji-panel {
+    background: rgba(253, 249, 240, 0.75);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 0.5px solid rgba(139, 133, 129, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .shoji-panel {
+    background: rgba(26, 24, 21, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ─── Waku Frame ─── */
+  .waku {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  /* ─── Kumiko Divider ─── */
+  .kumiko-divider {
+    height: var(--ma-lg);
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      rgba(139, 133, 129, 0.08) 24px,
+      rgba(139, 133, 129, 0.08) 28px
+    );
+    background-repeat: repeat-x;
+    position: relative;
+    margin: var(--ma-lg) 0;
+  }
+
+  .dark .kumiko-divider {
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      rgba(212, 207, 199, 0.06) 24px,
+      rgba(212, 207, 199, 0.06) 28px
+    );
+  }
+
+  /* ─── Sumi Engrave Effect ─── */
+  .sumi-engrave {
+    background: linear-gradient(135deg, var(--sumi-light), var(--sumi-mid));
+    color: var(--washi-base);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ═══════════════════════════════════════
+     BUTTONS
+     ═══════════════════════════════════════ */
+
+  /* Zen Button (Outline) */
+  .btn-zen {
+    background: transparent;
+    border: 1px solid var(--sumi-light);
+    color: var(--sumi-mid);
+    padding: 12px 28px;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    position: relative;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+  }
+
+  .btn-zen::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+  }
+
+  .btn-zen:hover::before {
+    width: 100%;
+  }
+
+  .btn-zen:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Torii Gate Button (Vermilion fill) */
+  .btn-torii {
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-torii:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Ghost Button (Ink wash) */
+  .btn-ghost {
+    background: var(--color-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    padding: 10px 24px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: var(--color-text);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(31, 31, 31, 0.12);
+  }
+
+  .dark .btn-ghost:hover {
+    background: rgba(212, 207, 199, 0.12);
+  }
+
+  /* Legacy vermilion fill (kept for compatibility) */
+  .btn-vermilion {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    background: transparent;
+    padding: 0.5rem 1.5rem;
+    transition: color 0.3s ease;
+    z-index: 1;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+  }
+
+  .btn-vermilion::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn-vermilion:hover {
+    color: #fff;
+  }
+
+  .btn-vermilion:hover::before {
+    width: 100%;
+  }
+
+  /* ─── Kokoro Card ─── */
+  .kokoro-card {
+    background: var(--color-surface);
+    border: 0.5px solid var(--color-border);
+    padding: 28px 24px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Wabi-Sabi imperfection: uneven emphasis line */
+  .kokoro-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .kokoro-card:hover::after {
+    opacity: 0.6;
+  }
+
+  /* ─── Navigation Ink Brush Hover ─── */
+  .nav-link {
+    position: relative;
+    padding: 8px 0;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: currentColor;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+    background: var(--color-accent);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  /* ─── Underline from center ─── */
+  .hover-underline {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .hover-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  .hover-underline:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* ─── Sepia hover for images ─── */
+  .img-washi {
+    transition: filter 0.5s ease;
+  }
+
+  .img-washi:hover {
+    filter: sepia(0.3) saturate(0.8);
+  }
+
+  /* ─── Enso decorative circle ─── */
+  .enso {
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .enso::after {
+    content: "";
+    position: absolute;
+    inset: 20%;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+  }
+
+  /* ─── Ink Bleed Scroll Effect ─── */
+  .ink-bleed {
+    background-image: linear-gradient(to right, var(--color-accent), var(--color-accent));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ink-bleed.visible {
+    background-size: 100% 100%;
+  }
+}
+
+/* ═══════════════════════════════════════
+   VII. ANIMATIONS & TRANSITIONS
+   ═══════════════════════════════════════ */
+
+/* Page entry */
+.page-enter {
+  animation: yugenFade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes yugenFade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Fade-in-up */
+.animate-fade-in-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children (Bamboo Grove) */
+.stagger-container > * {
+  opacity: 0;
+  animation: bambooRise 0.5s ease forwards;
+}
+
+.stagger-container.visible > *:nth-child(1) { animation-delay: 0s; }
+.stagger-container.visible > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger-container.visible > *:nth-child(3) { animation-delay: 0.16s; }
+.stagger-container.visible > *:nth-child(4) { animation-delay: 0.24s; }
+.stagger-container.visible > *:nth-child(5) { animation-delay: 0.32s; }
+.stagger-container.visible > *:nth-child(6) { animation-delay: 0.40s; }
+.stagger-container.visible > *:nth-child(7) { animation-delay: 0.48s; }
+.stagger-container.visible > *:nth-child(8) { animation-delay: 0.56s; }
+
+.stagger-container.visible > * {
+  opacity: 1;
+}
+
+@keyframes bambooRise {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Legacy stagger (backward compat) */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stagger-children.visible > *:nth-child(1) { transition-delay: 0s; }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 0.2s; }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 0.3s; }
+.stagger-children.visible > *:nth-child(5) { transition-delay: 0.4s; }
+.stagger-children.visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+.stagger-children.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   VIII. ACCESSIBILITY
+   ═══════════════════════════════════════ */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode */
+@media (forced-colors: active) {
+  .washi-overlay::before,
+  body::before {
+    display: none !important;
+  }
+}
+
+/* Focus indicator */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 0;
+}
+
+/* ═══════════════════════════════════════
+   IX. SCROLLBAR
+   ═══════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: #fff;
 }
